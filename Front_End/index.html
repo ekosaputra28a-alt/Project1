@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BurgerQu x Saudagar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="hamburger-btn">
+                <i class="fas fa-bars"></i>
+                Menu
+            </button>
+        </div>
+
+        <div class="nav-center">
+            <div class="logo">
+                <i class="fas fa-store"></i> SAUDAGAR
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="search-wrapper" style="display: flex; align-items: center; gap: 5px;">
+                <input type="text" id="inputPencarian" placeholder="Cari menu..."
+                style="display: none; padding : 5px 12px; border-radius: 20px; border: 1px solid #ffc107; outline: none; width: 150px;">
+                <a href="#" class="icon-btn" id="btnCari"><i class="fas fa-search"></i></a>
+            </div>
+            <a href="#" class="icon-btn"><i class="fas fa-user"></i></a>
+            <a href="#" class="icon-btn cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge">0</span>
+            </a> 
+        </div>
+
+        <div class="nav-sidebar" id="navSidebar">
+    <div class="sidebar-header">
+        <div class="logo" style="color: white;">
+            <i class="fas fa-store"></i> SAUDAGAR
+        </div>
+        <button class="close-sidebar" id="closeNav" style="color: white; background: none; border: none; font-size: 2rem; cursor: pointer;">&times;</button>
+    </div>
+    <ul style="list-style: none; margin-top: 30px; padding: 0;">
+        <li style="padding: 15px 0; border-bottom: 1px solid #333;"><a href="#" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 15px;"><i class="fas fa-home"></i> Home</a></li>
+        <li style="padding: 15px 0; border-bottom: 1px solid #333;"><a href="#menu" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 15px;"><i class="fas fa-utensils"></i> Daftar Menu</a></li>
+        <li style="padding: 15px 0; border-bottom: 1px solid #333;"><a href="#" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 15px;"><i class="fas fa-history"></i> Riwayat Pesanan</a></li>
+    </ul>
+</div>
+    </nav>
+
+    <header class="hero">
+    <div class="hero-content">
+        <h1>Gigitan Pertamaaaaa, <span>Cinta Selamanya.</span></h1>
+        <p>Burger premium dengan daging sapi asli dan saus rahasia yang bikin nagih.</p>
+        <a href="#menu" class="cta-button">Pesan Sekarang</a>
+    </div>
+</header>
+
+<section class="categories-section">
+    <div class="category-container" style="display: flex; gap: 20px; overflow-x: auto; padding: 20px; justify-content: center;">
+            <div class="category-item" onclick="filterMenu('burger')" style="cursor: pointer; text-align: center;">
+                <div class="category-icon"><i class="fas fa-hamburger"></i></div>
+                <h4>Burger</h4>
+            </div>
+
+        <div class="category-item" onclick="filterMenu('chicken')" style="cursor: pointer; text-align: center;">
+                <div class="category-icon"><i class="fas fa-drumstick-bite"></i></div>
+                <h4>Chicken</h4>
+            </div>
+            <div class="category-item" onclick="filterMenu('coffee')" style="cursor: pointer; text-align: center;">
+                <div class="category-icon"><i class="fas fa-coffee"></i></div> 
+                <h4>Coffee</h4>
+            </div>
+            <div class="category-item" onclick="filterMenu('pizza')" style="cursor: pointer; text-align: center;">
+                <div class="category-icon"><i class="fas fa-pizza-slice"></i></div>
+                <h4>Pizza</h4>
+            </div>
+    </div>
+
+    <div class="slider-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot active"></span>
+    </div>
+</section>
+
+
+   
+    <h2 id="Display-title" style="text-align: center; margin-top: 50px; font-size: 2rem">Semua Menu</h2>
+    <section id="Menu-container" class="product-grid"></section>
+    
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Burger<span>Qu</span></h3>
+                <p>Menyajikan kebahagiaan dalam setangkup roti sejak 2026.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Bantuan</h4>
+                <ul>
+                    <li><a href="#">Cara Pesan</a></li>
+                    <li><a href="#">Lokasi Toko</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BurgerQu Project. Dibuat dengan semangat belajar!</p>
+        </div>
+    </footer>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="sidebar-header">
+        <h3>Keranjang Belanja</h3>
+        <button class="close-sidebar" id="closeSidebar">&times;</button>
+    </div>
+    
+    <div class="sidebar-content" id="cartItems">
+        <p class="empty-msg">Keranjang masih kosong nih...</p>
+    </div>
+
+    <div class="sidebar-footer">
+        <div class="total-price" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; border-top: 1px solid #eee; padding-top: 10px">
+            <span>Total:</span>
+            <span id="cartTotal">Rp 0</span>
+        </div>
+        <button class="checkout-btn">Lanjut Bayar</button>
+    </div>
+</div>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+    // --- 1. DATA GUDANG MENU ---
+    const daftarMenu = [
+        { id: 1, nama: "Classic Cheese", harga: 45000, kategori: "burger", badge: "Best Seller", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500", desc: "Double beef, cheddar cheese, fresh onion." },
+        { id: 2, nama: "Spicy Chicken", harga: 40000, kategori: "burger", badge: "", image: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500", desc: "Crispy chicken thigh, jalapeno, spicy mayo." },
+        { id: 3, nama: "Caramel Macchiato", harga: 28000, kategori: "coffee", badge: "Best Seller", image: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500", desc: "Espresso premium dengan sirup caramel." },
+        { id: 4, nama: "Pepperoni Feast", harga: 85000, kategori: "pizza", badge: "Hot Deal", image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500", desc: "Irisan pepperoni sapi melimpah." },
+        { id: 5, nama: "Classic Crispy Chicken", harga: 35000, kategori: "chicken", badge: "Must Try", image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=500", desc: "Ayam goreng juicy di dalam." }
+    ];
+
+    let cart = [];
+
+    // --- 2. DEKLARASI ELEMEN UI ---
+    const navSidebar = document.getElementById('navSidebar');
+    const cartSidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotalElement = document.getElementById('cartTotal');
+    const cartBadge = document.querySelector('.cart-badge');
+    const displayTitle = document.getElementById('Display-title');
+    const menuContainer = document.getElementById('Menu-container');
+
+    // --- 3. FUNGSI RENDER (Gambar Menu) ---
+    // Fungsi ini dipanggil setiap kali ada perubahan filter/search
+    window.tampilkanMenu = function(data) {
+        if (!menuContainer) return;
+        menuContainer.innerHTML = ""; 
+        
+        data.forEach(item => {
+            menuContainer.innerHTML += `
+                <div class="product-card">
+                    ${item.badge ? `<div class="badge">${item.badge}</div>` : ''}
+                    <img src="${item.image}" alt="${item.nama}">
+                    <h3>${item.nama}</h3>
+                    <p class="desc">${item.desc}</p>
+                    <p class="price">Rp ${item.harga.toLocaleString()}</p>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" onclick="ubahQtyManual(this, -1)">-</button>
+                        <input type="text" value="1" class="qty-input" readonly>
+                        <button type="button" class="qty-btn" onclick="ubahQtyManual(this, 1)">+</button>
+                    </div>
+                    <button class="buy-btn" onclick="tambahKeKeranjangOtomatis('${item.nama}', ${item.harga}, '${item.image}', this)">
+                        Tambah ke Keranjang
+                    </button>
+                </div>
+            `;
+        });
+    };
+
+    // --- 4. LOGIKA QUANTITY & KERANJANG ---
+    window.ubahQtyManual = function(btn, delta) {
+        const input = btn.parentElement.querySelector('.qty-input');
+        let val = parseInt(input.value) + delta;
+        if (val < 1) val = 1;
+        input.value = val;
+    };
+
+    // --- Letakkan showToast di dalam tambahKeKeranjangOtomatis agar berfungsi ---
+window.tambahKeKeranjangOtomatis = function(nama, harga, gambar, btn) {
+    const qtyInput = btn.parentElement.querySelector('.qty-input');
+    const jumlah = parseInt(qtyInput.value);
+    
+    const existingItem = cart.find(item => item.name === nama);
+    if (existingItem) {
+        existingItem.quantity += jumlah;
+    } else {
+        cart.push({ name: nama, price: harga, quantity: jumlah, image: gambar });
+    }
+
+    updateCartUI();
+    openCart();
+    showToast(); // <--- TAMBAHKAN INI
+    qtyInput.value = 1;
+};
+
+// --- Fungsi showToast yang benar ---
+window.showToast = function() {
+    const toast = document.getElementById('toastNotification');
+    toast.style.display = 'block';
+
+    setTimeout(() => {
+        toast.style.display = 'none'; // Titik koma di dalam kutip tadi sudah dihapus
+    }, 2000);
+}
+
+    document.querySelector('.checkout-btn').addEventListener('click', function() {
+    if (cart.length === 0) {
+        alert("Keranjang masih kosong!");
+        return;
+    }
+
+    // Perhatikan: namanya nomorWA (pakai r)
+    let nomorWA = "6285758914087"; 
+    let pesan = "Halo BurgerQu! Saya mau pesan:\n\n";
+    let totalHarga = 0;
+
+    cart.forEach(item => {
+        pesan += `- ${item.name} (${item.quantity}x) = Rp ${(item.price * item.quantity).toLocaleString()}\n`;
+        totalHarga += item.price * item.quantity;
+    });
+
+    pesan += `\n*Total Tagihan: Rp ${totalHarga.toLocaleString()}*`;
+
+    let urlWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
+
+    window.open(urlWA, '_blank');
+    });
+
+function updateCartUI() {
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotalElement = document.getElementById('cartTotal'); // Perbaikan typo
+    const cartBadge = document.querySelector('.cart-badge');
+
+    cartItemsContainer.innerHTML = ''; // Kosongkan dulu sebelum gambar ulang
+
+    let totalHarga = 0;
+    let totalBarang = 0;
+
+    // --- MULAI LOOP ---
+    // Kita harus pakai forEach supaya semua barang di array 'cart' muncul satu per satu
+    cart.forEach((item, index) => {
+        totalHarga += item.price * item.quantity;
+        totalBarang += item.quantity;
+
+        cartItemsContainer.innerHTML += `
+            <div class="cart-item" style="display:flex; align-items:center; gap:10px; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                <img src="${item.image}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;">
+                <div style="flex:1;">
+                    <h4 style="margin:0; font-size:0.9rem;">${item.name}</h4>
+                    <small>${item.quantity}x Rp ${item.price.toLocaleString()}</small>
+                </div>
+                <button onclick="hapusSatuItem(${index})" style="background:none; border:none; color:#ff4757; cursor:pointer;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+    });
+    // --- AKHIR LOOP ---
+
+    // Update tampilan angka (Pakai backtick ` agar variabel terbaca)
+    cartTotalElement.innerText = `Rp ${totalHarga.toLocaleString()}`;
+    cartBadge.innerText = totalBarang;
+
+    // Simpan ke memori browser agar tidak hilang saat refresh
+    localStorage.setItem('keranjangKu', JSON.stringify(cart));
+} // KURUNG TUTUP FUNGSI HARUS DI SINI
+
+// Fungsi hapus ditaruh di luar updateCartUI
+window.hapusSatuItem = function(index) {
+    cart.splice(index, 1);
+    updateCartUI(); // Panggil fungsi di atas untuk gambar ulang
+};
+    // --- 5. LOGIKA NAVIGASI & FILTER ---
+    const openNav = () => { navSidebar.classList.add('active'); overlay.style.display = 'block'; };
+    const openCart = () => { cartSidebar.classList.add('active'); overlay.style.display = 'block'; };
+    const tutupSemua = () => {
+        navSidebar.classList.remove('active');
+        cartSidebar.classList.remove('active');
+        overlay.style.display = 'none';
+    };
+
+    // Filter per kategori
+    window.filterMenu = function(category) {
+        displayTitle.innerText = "Menu " + category.charAt(0).toUpperCase() + category.slice(1);
+        const hasilFilter = daftarMenu.filter(item => item.kategori === category);
+        tampilkanMenu(hasilFilter);
+        displayTitle.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Event Listener Dasar
+    document.querySelector('.hamburger-btn').addEventListener('click', openNav);
+    document.querySelector('.cart-btn').addEventListener('click', (e) => { e.preventDefault(); openCart(); });
+    document.getElementById('closeNav').addEventListener('click', tutupSemua);
+    document.getElementById('closeSidebar').addEventListener('click', tutupSemua);
+    overlay.addEventListener('click', tutupSemua);
+    
+
+// --- FITUR SEARCH (KACA PEMBESAR) ---
+const btnCari = document.getElementById('btnCari');
+const inputPencarian = document.getElementById('inputPencarian');
+
+// 1. Logika Tombol Klik (Buka/Tutup)
+btnCari.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (inputPencarian.style.display === 'none' || inputPencarian.style.display === '') {
+        inputPencarian.style.display = 'inline-block';
+        inputPencarian.focus();
+    } else {
+        inputPencarian.style.display = 'none';
+        inputPencarian.value = '';
+        tampilkanMenu(daftarMenu);
+        displayTitle.innerText = 'Semua Menu';
+    }
+});
+
+// 2. Logika Input (Mengetik Real-time)
+inputPencarian.addEventListener('input', function() {
+    const keyword = this.value.toLowerCase().trim(); // Ambil input & hapus spasi liar
+    
+    // Proses penyaringan (Filter)
+    const hasilCari = daftarMenu.filter(item => {
+        const namaMenu = (item.nama || "").toLowerCase();
+        const deskripsiMenu = (item.desc || "").toLowerCase();
+        return namaMenu.includes(keyword) || deskripsiMenu.includes(keyword);
+    });
+
+    // Update Judul (Gunakan Backtick ``)
+    displayTitle.innerText = keyword ? `Mencari: "${keyword}"` : "Semua Menu";
+    
+    // Tampilkan hasil saringan ke layar
+    tampilkanMenu(hasilCari); 
+
+    // Efek geser layar otomatis ke bawah kalau ada teks
+    if (keyword.length > 0) {
+        displayTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+});
+
+    tampilkanMenu(daftarMenu);
+    updateCartUI();
+});
+
+
+    </script>
+
+    <div id="toastNotification" class="toast">Berhasil ditambahkan ke keranjang!</div>
+
+</body>
+</html>
